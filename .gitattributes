@@ -1,0 +1,6 @@
+# Windows 批处理必须是 CRLF 换行：
+# cmd.exe 解析 LF-only 的 .bat 时，多字节字符（中文）会导致命令错位执行
+*.bat text eol=crlf
+
+# PowerShell 脚本用 UTF-8（带 BOM，兼容 PowerShell 5.1 读取中文）
+*.ps1 text working-tree-encoding=UTF-8
