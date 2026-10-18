@@ -33,3 +33,17 @@ npx hexo generate  # 生成静态页面到 public/
 
 编辑 `_config.yml` 的 `theme:` 字段，主题放到 `themes/` 目录
 （当前用的是 npm 包形式的 landscape）。
+
+## Windows 辅助脚本
+
+`script/` 下每个功能一个 `.bat`，在博客根目录执行：
+
+```
+script\new-post.bat "文章标题"   # 创建带模板的文章
+script\preview.bat               # 本地预览 localhost:4000
+script\push.bat "提交说明"       # 检查改动→提交→推送（不带说明则用时间戳）
+```
+
+**改这些脚本前必须知道**：`.bat` 文件必须存为 **GBK 编码 + CRLF 换行**——
+UTF-8 存的 bat 在中文命令行里全是乱码；LF 换行会让 cmd 错位解析。
+仓库的 `.gitattributes` 已锁定该规则，但用记事本编辑时仍不要手动改编码。
