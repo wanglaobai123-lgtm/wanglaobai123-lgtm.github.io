@@ -4,7 +4,7 @@
 
 # Site
 title: Myspace
-subtitle: 'to record my life'
+subtitle: '记录我的生活'
 description: '老王的生活记录'
 keywords:
 author: comrade_laowang
@@ -96,9 +96,15 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: fluid
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+# 本地搜索（Fluid 主题 search 功能依赖此插件）
+search:
+  path: local-search.xml
+  field: post
+  content: true
