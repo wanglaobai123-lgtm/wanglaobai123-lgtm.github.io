@@ -1,0 +1,48 @@
+name: Pages
+
+# 源码仓库 = 发布仓库。push 到 main 即触发：构建 public/ → 通过官方 Pages 通道部署
+# 无需 PAT：使用默认 GITHUB_TOKEN，权限在下方 permissions 段声明
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # 允许在 Actions 页面手动触发
+
+# 赋予工作流操作 GitHub Pages 的权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npx hexo generate
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
